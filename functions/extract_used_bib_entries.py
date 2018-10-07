@@ -31,7 +31,7 @@ with open(args.b) as bibtex_file:
 entries = []
 
 target_field_names = ['abstract', 'keywords', 'url', 'file', 'eprint', 'isbn',
-                      'doi', 'arxivid', 'archiveprefix', 'issn']
+                      'doi', 'archiveprefix', 'issn']
 for bib_entry in bib_database.entries:
     if bib_entry['ID'] in citation_keys:
         for target_field_name in target_field_names:
