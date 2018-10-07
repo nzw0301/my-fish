@@ -16,13 +16,13 @@ parser.add_argument('-o',
                     help='the path to output BibTeX file')
 args = parser.parse_args()
 
-prog = re.compile(r'\\cite(t|p)*{(.+?)}')
+prog = re.compile(r'\\cite(t|p)*(\[.+?\])*{(.+?)}')
 citation_keys = set()
 with open(args.l) as f:
     for l in f:
         cites = re.findall(prog, l)
         for cite in cites:
-            for entry in cite[1].split(','):
+            for entry in cite[2].split(','):
                 citation_keys.add(entry.strip())
 
 with open(args.b) as bibtex_file:
