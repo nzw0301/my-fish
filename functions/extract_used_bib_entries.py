@@ -30,13 +30,26 @@ with open(args.b) as bibtex_file:
 
 entries = []
 
-delete_field_names = ['abstract', 'keywords', 'url', 'file', 'isbn',
-                      'doi', 'primaryclass', 'pmid', 'issn']
+delete_field_names = [
+    'abstract', 'keywords', 'url', 'file', 'isbn',
+    'doi', 'pmid', 'issn', 'arxivid'
+]
+
+delete_field_names_for_no_arxiv = [
+    'eprint', 'prinaryclass', 'archiveprefix'
+]
+
 for bib_entry in bib_database.entries:
     if bib_entry['ID'] in citation_keys:
         for field_name in delete_field_names:
             if field_name in bib_entry:
                 del bib_entry[field_name]
+
+        if bib_entry.get('journal', '').lower() != 'arxiv':
+            for field_name in delete_field_names_for_no_arxiv:
+                if field_name in bib_entry:
+                    del bib_entry[field_name]
+
         entries.append(bib_entry)
 
 output_db = BibDatabase()
