@@ -32,7 +32,7 @@ entries = []
 
 delete_field_names = [
     'abstract', 'keywords', 'url', 'file', 'isbn',
-    'doi', 'pmid', 'issn', 'arxivid'
+    'doi', 'pmid', 'issn', 'arxivid', 'month'
 ]
 
 delete_field_names_for_no_arxiv = [
@@ -56,5 +56,6 @@ output_db = BibDatabase()
 output_db.entries = entries
 
 writer = BibTexWriter()
+writer.indent = ' ' * 4
 with open(args.o, 'w') as bibfile:
     bibfile.write(writer.write(output_db))
