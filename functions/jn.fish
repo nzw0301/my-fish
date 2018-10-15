@@ -1,3 +1,3 @@
 function jn
-	jupyter notebook $argv;
+    jupyter notebook $argv;
 end

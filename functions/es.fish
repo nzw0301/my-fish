@@ -1,3 +1,3 @@
 function es
-  emacs --daemon $argv;
+    emacs --daemon $argv;
 end

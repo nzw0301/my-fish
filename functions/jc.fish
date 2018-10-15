@@ -1,3 +1,3 @@
 function jc
-  jupyter console;
+    jupyter console;
 end
