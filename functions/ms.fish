@@ -1,3 +1,3 @@
 function ms
-    ssh server2 /home/local/bin/ms-script/ms $argv
+    ssh kserver2 /mslab/link/ms $argv
 end
