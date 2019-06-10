@@ -1,14 +1,15 @@
 import argparse
 import re
 import bibtexparser
+import glob
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bibdatabase import BibDatabase
 
 parser = argparse.ArgumentParser(description='Extract used BibTex entries in LaTeX file and output them as new bib file')
 parser.add_argument('-l',
                     nargs='+',
-                    default='main.tex',
-                    help='the path to target LaTeX file')
+                    default='*',
+                    help='the path to target LaTeX files. Default: parse all *.tex file.')
 parser.add_argument('-b',
                     default='/Users/nzw/gdrive/papers/library.bib',
                     help='the path to the global BibTeX file including unused BibTeX entries')
@@ -19,7 +20,18 @@ args = parser.parse_args()
 
 prog = re.compile(r'\\cite(t|p)*(\[.+?\])*{(.+?)}')
 citation_keys = set()
-for fname in args.l:
+
+target = args.l
+if target == '*':
+    fnames = [filename for filename in glob.iglob('**/*.tex', recursive=True)]
+elif type(target) == list:
+    fnames = target
+elif type(target) == str:
+    fnames = [target]
+else:
+    raise ValueError('Invalid arguments. ')
+
+for fname in fnames:
     with open(fname) as f:
         for l in f:
             cites = re.findall(prog, l)
