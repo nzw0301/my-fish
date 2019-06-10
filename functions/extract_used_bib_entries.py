@@ -6,6 +6,7 @@ from bibtexparser.bibdatabase import BibDatabase
 
 parser = argparse.ArgumentParser(description='Extract used BibTex entries in LaTeX file and output them as new bib file')
 parser.add_argument('-l',
+                    nargs='+',
                     default='main.tex',
                     help='the path to target LaTeX file')
 parser.add_argument('-b',
@@ -18,12 +19,13 @@ args = parser.parse_args()
 
 prog = re.compile(r'\\cite(t|p)*(\[.+?\])*{(.+?)}')
 citation_keys = set()
-with open(args.l) as f:
-    for l in f:
-        cites = re.findall(prog, l)
-        for cite in cites:
-            for entry in cite[2].split(','):
-                citation_keys.add(entry.strip())
+for fname in args.l:
+    with open(fname) as f:
+        for l in f:
+            cites = re.findall(prog, l)
+            for cite in cites:
+                for entry in cite[2].split(','):
+                    citation_keys.add(entry.strip())
 
 with open(args.b) as bibtex_file:
     bib_database = bibtexparser.load(bibtex_file)
