@@ -18,7 +18,7 @@ parser.add_argument('-o',
                     help='the path to output BibTeX file')
 args = parser.parse_args()
 
-prog = re.compile(r'\\cite(t|p)*(\[.+?\])*{(.+?)}')
+prog = re.compile(r'\\cite(t|p|alp)*(\[.+?\])*{(.+?)}')
 citation_keys = set()
 
 target = args.l
