@@ -73,3 +73,5 @@ writer = BibTexWriter()
 writer.indent = ' ' * 4
 with open(args.o, 'w') as bibfile:
     bibfile.write(writer.write(output_db))
+
+print(f"#entries is {len(entries)}")
